@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 
 export interface Person{
     name:string;
@@ -16,6 +16,16 @@ interface Props {
 const TextField:React.FC <Props> = ({text, person,customFunction}) => {
 
     const [age,setAge] = useState<number|null>(person.age);
+    const[perName,setName] = useState<string>(person.name)
+    const inputRef =useRef<HTMLInputElement>(null);
+
+    const onButtonClick = () => {
+        if (inputRef && inputRef.current) {
+            let newName=inputRef.current.value;
+            setName(newName);
+        }
+    };
+
 
     const setNewAge = (age:number)=>{
         isNaN(age)?setAge(person.age): setAge(age);
@@ -25,10 +35,15 @@ const TextField:React.FC <Props> = ({text, person,customFunction}) => {
     return (
         <div>
             {text}
-            <h1>{age}</h1>
             <h2>{customFunction(person)}</h2>
-            <h3>Set your age :</h3>
+            <h3>Set your age with useState:</h3>
             <input onChange={event => { setNewAge(event.target.valueAsNumber)}} type="number" />
+            <h1>{age}</h1>
+            <h3>Set your name with useRef:</h3>
+            <input ref={inputRef}  />
+            <button onClick={onButtonClick}>Change name</button>
+            <h1>{perName}</h1>
+
         </div>
     );
 };
