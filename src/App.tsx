@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import TextField, {Person} from "./components/TextField";
+import UseReducer from "./components/useReducer";
 
 const App:React.FC =()=> {
 
@@ -17,6 +18,7 @@ const App:React.FC =()=> {
     <div className="App">
       Yo
         <TextField text={"Chiao Bella Bellisimo!"} customFunction={welcomePerson} person={Sandi}/>
+        <UseReducer/>
     </div>
   );
 };
